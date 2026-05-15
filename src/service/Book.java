@@ -25,4 +25,8 @@ public class Book {
     public int getValue() {
         return value;
     }
+    @Override
+    public String toString() {
+        return this.title + "-" + this.author + "-" + this.year + "-" + this.value;
+    }
 }
