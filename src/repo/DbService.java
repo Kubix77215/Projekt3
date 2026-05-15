@@ -32,7 +32,7 @@ public class DbService {
                 ps.executeUpdate();
                 ps.close();
         }
-            catch (Exception e) {System.out.println(e);}
+            catch (SQLException e) {System.out.println(e);}
     }
     public static boolean isInDatabase(Book book, Database db) {
         try {
@@ -50,7 +50,7 @@ public class DbService {
             
             
         }
-        catch (Exception e) {System.out.println(e);return false;}
+        catch (SQLException e) {System.out.println(e);return false;}
     }
     public static void infoFromDatabase(String titleToGet, Database db) {
             try {
@@ -67,7 +67,7 @@ public class DbService {
                 }
                 rs.close();
                 ps.close();
-            } catch (Exception e) {System.out.println("nie ma");} 
+            } catch (SQLException e) {System.out.println("nie ma");} 
 }
     public static Book getBookByTitle(String titleToFind, Database db) {
         try {
@@ -86,7 +86,22 @@ public class DbService {
                 return book;
             }
             
-        } catch (Exception e) {System.out.println("nie ma takiej ksiazki");return null;}
+        } catch (SQLException e) {System.out.println("nie ma takiej ksiazki");return null;}
         return null;
+    }
+    public static void updateBook(Book book, Database db) {
+        try {
+            String sql = "UPDATE books SET title = ?, author = ?, year = ?, value = ? WHERE title = ? ";
+            PreparedStatement ps = db.getConn().prepareStatement(sql);
+            ps.setString(1, book.title);
+            ps.setString(2, book.author);
+            ps.setInt(3, book.year);
+            ps.setInt(4,book.value);
+            ps.setString(5, book.title);
+            ps.executeUpdate();
+            ps.close();
+            System.out.println("zaaktualizowano dane dla: " + book);
+        } catch (SQLException e) {System.out.println(e);
+        }
     }
 }
