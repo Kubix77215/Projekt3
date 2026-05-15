@@ -39,7 +39,16 @@ public class App {
                     DbService.removeBookFromDatabase(nazwa, booksDB);
                 }
                 case 3 -> {
-                    
+                    System.out.println("tytul: ");
+                    String tytul = sc.nextLine();
+                    System.out.println("autor: ");
+                    String autor = sc.nextLine();
+                    System.out.println("rok: ");
+                    int rok = sc.nextInt(); sc.nextLine();
+                    System.out.println("wartosc: ");
+                    int wartosc = sc.nextInt(); sc.nextLine();
+                    Book book = new Book(tytul, autor, rok, wartosc);
+                    DbService.updateBook(book, booksDB);
                 }
             }
         }
